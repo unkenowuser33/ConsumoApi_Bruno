@@ -47,8 +47,6 @@ public class HomeworkActivity extends AppCompatActivity {
         System.out.println("============================================");
         System.out.println("============================================");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        /*courseAdapter = new CourseAdapter(postCourses, activity);
-        recyclerView.setAdapter(courseAdapter);*/
         if (getIntent().getExtras() != null) {
             position = getIntent().getIntExtra("position", 0);
         }
@@ -62,10 +60,23 @@ public class HomeworkActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ResponseData mData = response.body();
                 if (mData != null && response.isSuccessful()) {
+                    List<PostCourse> courses = mData.getEstudiantes().get(position).getCursos();
+                    //postHomeworks.clear(); // Limpia la lista antes de agregar nuevas tareas
+
+                    for (PostCourse course : courses) {
+                        List<PostHomework> homeworks = course.getTareas();
+                        postHomeworks.addAll(homeworks);
+                    }
+
+                    homeworkAdapter = new HomeworkAdapter(postHomeworks, activity);
+                    recyclerView.setAdapter(homeworkAdapter);
+                }
+
+                /*if (mData != null && response.isSuccessful()) {
                     postHomeworks = mData.getEstudiantes().get(position).getCursos().get(position).getTareas();
                     homeworkAdapter = new HomeworkAdapter(postHomeworks, activity);
                     recyclerView.setAdapter(homeworkAdapter);
-                } else {
+                }*/ else {
                     System.out.println("No hay data");
                 }
             }
@@ -73,6 +84,7 @@ public class HomeworkActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseData> call, Throwable t) {
                 Toast.makeText(HomeworkActivity.this, "ERROR DE CONEXION", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
         });
     }

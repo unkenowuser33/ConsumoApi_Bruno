@@ -29,9 +29,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="18dp"
                 android:layout_toStartOf="@+id/cv2"
                 android:orientation="vertical">
 
@@ -104,10 +104,10 @@
 
                     <TextView
                         android:id="@+id/tvDescripcionH"
-                        android:layout_width="130dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="Descripcion de tarea"
+                        android:text="Descripcion de tarea Descripcion de tarea "
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         android:textStyle="bold" />
